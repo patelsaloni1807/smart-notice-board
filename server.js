@@ -33,6 +33,10 @@ app.use(methodOverride('_method'));
 // }
 
 // Static folder
+app.get("/", (req, res) => {
+  res.send("Smart Notice Board is running 🚀");
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // EJS
