@@ -36,6 +36,8 @@ app.use(methodOverride('_method'));
 app.get("/", (req, res) => {
   res.send("Smart Notice Board is running 🚀");
 });
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
