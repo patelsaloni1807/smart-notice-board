@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= typeof pageTitle !='undefined' ? pageTitle : 'Smart Notice Board' %>
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" type="image/png">
+</head>
+
+<body>
+
+  <% if (typeof user !=='undefined' && user && user.role==='admin' ) { %>
+    <!-- Use standard navbar for Admin Pages only -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <div class="container">
+        <a class="navbar-brand" href="/admin/dashboard">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdmin">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarAdmin">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="/">View Site</a></li>
+            <li class="nav-item"><a class="nav-link" href="/auth/logout">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <% } else { %>
+        <!-- Custom Blue Header for Public/Student View -->
+        <header class="app-header">
+          <div class="main-container header-content">
+            <div class="brand-section">
+              <div class="brand-icon">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+              <div>
+                <h1 class="app-title">Smart Notice Board</h1>
+                <p class="app-subtitle">Stay updated with the latest announcements</p>
+              </div>
+            </div>
+
+            <div class="header-actions">
+              <% if(user) { %>
+                <a href="/auth/logout" class="btn-admin">
+                  <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <% } else { %>
+                  <a href="/auth/login" class="btn-admin">
+                    <i class="fas fa-user-shield"></i> Admin
+                  </a>
+                  <% } %>
+            </div>
+          </div>
+        </header>
+        <div class="main-container">
+          <% } %>

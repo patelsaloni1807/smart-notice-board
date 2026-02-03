@@ -1,0 +1,17 @@
+<header class="admin-topbar">
+    <div class="d-flex align-items-center">
+        <!-- Breadcrumb or Title could go here -->
+        <h2 class="h5 mb-0 text-muted">
+            <%= typeof pageTitle !='undefined' ? pageTitle : 'Admin Panel' %>
+        </h2>
+    </div>
+
+    <div class="user-menu">
+        <span class="user-name">
+            <%= typeof user !='undefined' ? user.name : 'Admin' %>
+        </span>
+        <a href="/auth/logout" class="btn-logout-icon" title="Logout">
+            <i class="fas fa-sign-out-alt fa-lg"></i>
+        </a>
+    </div>
+</header>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= pageTitle %>
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <%- include('../partials/sidebar') %>
+
+            <div class="admin-main">
+                <%- include('../partials/topbar') %>
+
+                    <main class="admin-content animate-fade-in">
+                        <div class="max-w-2xl mx-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div>
+                                    <h2 class="h4 font-bold text-gray-800 mb-1">Edit Notice</h2>
+                                    <p class="text-muted small">Update notice details</p>
+                                </div>
+                                <a href="/admin/notices" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-arrow-left me-2"></i> Back
+                                </a>
+                            </div>
+
+                            <div class="admin-card">
+                                <form action="/admin/notices/edit/<%= notice._id %>" method="POST">
+                                    <div class="mb-3">
+                                        <label class="form-label-custom">Title</label>
+                                        <input type="text" name="title" class="form-control-custom" required
+                                            value="<%= notice.title %>">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label-custom">Description</label>
+                                        <textarea name="description" class="form-control-custom" rows="4"
+                                            required><%= notice.description %></textarea>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-custom">Department</label>
+                                            <select name="department" class="form-control-custom">
+                                                <option value="all" <%=!notice.department ? 'selected' : '' %>>All
+                                                    Departments</option>
+                                                <% departments.forEach(dept=> { %>
+                                                    <option value="<%= dept._id %>" <%=(notice.department &&
+                                                        notice.department.toString()===dept._id.toString()) ? 'selected'
+                                                        : '' %>>
+                                                        <%= dept.name %>
+                                                    </option>
+                                                    <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-custom">File URL (Optional)</label>
+                                            <input type="text" name="fileUrl" class="form-control-custom"
+                                                value="<%= notice.fileUrl || '' %>">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-custom">Publication Date</label>
+                                            <input type="date" name="date" class="form-control-custom"
+                                                value="<%= notice.date ? new Date(notice.date).toISOString().split('T')[0] : '' %>">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label-custom">Expiry Date (Optional)</label>
+                                            <input type="date" name="expiryDate" class="form-control-custom"
+                                                value="<%= notice.expiryDate ? new Date(notice.expiryDate).toISOString().split('T')[0] : '' %>">
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end gap-2 mt-4">
+                                        <a href="/admin/notices" class="btn btn-light border">Cancel</a>
+                                        <button type="submit" class="btn btn-primary px-4">Update Notice</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </main>
+            </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
