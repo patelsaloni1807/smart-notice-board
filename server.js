@@ -26,19 +26,7 @@ app.use(express.json());
 // Method override
 app.use(methodOverride('_method'));
 
-// Logging
-// Logging
-// if (process.env.NODE_ENV === 'development') {
-//     app.use(morgan('dev'));
-// }
-
-// Static folder
-app.get("/", (req, res) => {
-  res.send("Smart Notice Board is running 🚀");
-});
-const authRoutes = require("./routes/auth");
-app.use("/auth", authRoutes);
-
+// Static files (CSS, JS, Images)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // EJS
@@ -56,7 +44,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Connect flash
+// Flash messages
 app.use(flash());
 
 // Global vars
@@ -68,14 +56,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Routes
-app.use('/', require('./routes/index'));
+// Routes (IMPORTANT ORDER)
+app.use('/', require('./routes/index'));   // 👈 HOME UI
 app.use('/auth', require('./routes/auth'));
 app.use('/admin', require('./routes/admin'));
-// app.use('/admin/departments', require('./routes/departments'));
-// app.use('/admin/students', require('./routes/students'));
-// app.use('/admin/notices', require('./routes/notices'));
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
