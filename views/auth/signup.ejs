@@ -16,6 +16,15 @@
                                 value="<%= typeof email != 'undefined' ? email : '' %>" />
                         </div>
                         <div class="mb-3">
+                            <label for="role" class="form-label">Role</label>
+                            <select name="role" id="role" class="form-select">
+                                <option value="student" <%=typeof role !='undefined' && role==='student' ? 'selected'
+                                    : '' %>>Student</option>
+                                <option value="admin" <%=typeof role !='undefined' && role==='admin' ? 'selected' : ''
+                                    %>>Admin</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="department" class="form-label">Department (Optional)</label>
                             <select name="department" id="department" class="form-select">
                                 <option value="">Select Department</option>
