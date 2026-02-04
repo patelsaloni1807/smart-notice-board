@@ -16,20 +16,22 @@ exports.getSignup = async (req, res) => {
         res.render('auth/signup', {
             pageTitle: 'Signup',
             user: req.user,
-            departments
+            departments,
+            role: undefined // Initialize role as undefined for new signup
         });
     } catch (err) {
         console.error(err);
         res.render('auth/signup', {
             pageTitle: 'Signup',
             user: req.user,
-            departments: []
+            departments: [],
+            role: undefined // Initialize role as undefined
         });
     }
 };
 
 exports.postSignup = async (req, res) => {
-    const { name, email, password, confirmPassword, department } = req.body;
+    const { name, email, password, confirmPassword, department, role } = req.body;
     let errors = [];
 
     // Fetch departments for re-rendering if error
@@ -52,6 +54,19 @@ exports.postSignup = async (req, res) => {
         errors.push({ msg: 'Password must be at least 6 characters' });
     }
 
+    // Single Admin Check
+    if (role === 'admin') {
+        try {
+            const adminExists = await User.findOne({ role: 'admin' });
+            if (adminExists) {
+                errors.push({ msg: 'Admin account already exists. Only one admin is allowed.' });
+            }
+        } catch (err) {
+            console.error(err);
+            errors.push({ msg: 'Error checking admin status' });
+        }
+    }
+
     if (errors.length > 0) {
         res.render('auth/signup', {
             errors,
@@ -60,6 +75,7 @@ exports.postSignup = async (req, res) => {
             password,
             confirmPassword,
             department,
+            role,
             departments,
             pageTitle: 'Signup',
             user: req.user
@@ -76,6 +92,7 @@ exports.postSignup = async (req, res) => {
                     password,
                     confirmPassword,
                     department,
+                    role,
                     departments,
                     pageTitle: 'Signup',
                     user: req.user
@@ -85,7 +102,7 @@ exports.postSignup = async (req, res) => {
                     name,
                     email,
                     password,
-                    role: 'student',
+                    role: role || 'student', // Default to student
                     department: department || null
                 });
 
