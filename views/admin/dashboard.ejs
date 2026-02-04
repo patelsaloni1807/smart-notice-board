@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css?v=<%= Date.now() %>">
 </head>
 
 <body>
@@ -34,7 +34,7 @@
                                     <div>
                                         <div class="stat-label">Total Students</div>
                                         <div class="stat-value">
-                                            <%= stats.students %>
+                                            <%= (typeof stats !=='undefined' && stats.students) ? stats.students : 0 %>
                                         </div>
                                     </div>
                                     <div class="stat-icon bg-blue-100 text-blue-600">
@@ -47,7 +47,8 @@
                                     <div>
                                         <div class="stat-label">Departments</div>
                                         <div class="stat-value">
-                                            <%= stats.departments %>
+                                            <%= (typeof stats !=='undefined' && stats.departments) ? stats.departments :
+                                                0 %>
                                         </div>
                                     </div>
                                     <div class="stat-icon bg-blue-100 text-blue-600">
@@ -60,7 +61,8 @@
                                     <div>
                                         <div class="stat-label">Active Notices</div>
                                         <div class="stat-value">
-                                            <%= stats.activeNotices %>
+                                            <%= (typeof stats !=='undefined' && stats.activeNotices) ?
+                                                stats.activeNotices : 0 %>
                                         </div>
                                     </div>
                                     <div class="stat-icon bg-blue-100 text-blue-600">
@@ -73,7 +75,7 @@
                                     <div>
                                         <div class="stat-label">Total Notices</div>
                                         <div class="stat-value">
-                                            <%= stats.notices %>
+                                            <%= (typeof stats !=='undefined' && stats.notices) ? stats.notices : 0 %>
                                         </div>
                                     </div>
                                     <div class="stat-icon bg-blue-100 text-blue-600">
