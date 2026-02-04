@@ -110,19 +110,29 @@ exports.postSignup = async (req, res) => {
 
 exports.postLogin = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-        if (err) { return next(err); }
+        if (err) {
+            console.error('Login Error:', err);
+            return next(err);
+        }
         if (!user) {
             req.flash('error_msg', info.message || 'Login failed');
             return res.redirect('/auth/login');
         }
         req.logIn(user, (err) => {
-            if (err) { return next(err); }
+            if (err) {
+                console.error('Login Session Error:', err);
+                return next(err);
+            }
+
+            console.log('User logged in:', user.email, 'Role:', user.role);
 
             // Explicitly save session before redirecting
             req.session.save(() => {
                 if (user.role === 'admin') {
+                    console.log('Redirecting to admin dashboard');
                     return res.redirect('/admin/dashboard');
                 } else {
+                    console.log('Redirecting to home (student)');
                     return res.redirect('/');
                 }
             });
