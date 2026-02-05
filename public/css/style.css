@@ -98,7 +98,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: -3.5rem; /* Overlap header */
+    margin-top: -3rem; /* Overlap header */
     margin-bottom: 2rem;
     position: relative;
     z-index: 10;
@@ -728,3 +728,4 @@ body {
     display: flex;
     gap: 12px;
 }
+
